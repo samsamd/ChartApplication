@@ -10,15 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChartApplication">
         <activity
+            android:name=".RadarChartActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BarChartActivity"
-            />
+        <activity android:name=".BarChartActivity" />
     </application>
 
 </manifest>
