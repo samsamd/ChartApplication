@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -30,19 +31,21 @@ public class RadarChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radar_chart);
-        chart = findViewById(R.id.radarchart);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        themeChart = "Developper";
+
+
+        themeChart = "";
 
         btnDevelopper = findViewById(R.id.btnDevelopper);
         btnDevelopper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 themeChart = "Developper";
-                setData(themeChart);
                 createChart();
+                setData(themeChart);
                 chart.animateXY(2000, 2000, Easing.EaseInOutQuad);
-
             }
         });
 
@@ -51,8 +54,8 @@ public class RadarChartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 themeChart = "Cooking";
-                setData(themeChart);
                 createChart();
+                setData(themeChart);
                 chart.animateXY(2000, 2000, Easing.EaseInOutQuad);
 
             }
@@ -66,10 +69,6 @@ public class RadarChartActivity extends AppCompatActivity {
      * @param themeChart
      */
     private void setData(String themeChart) {
-        setTitle("Skills Radar");
-
-        //On définit les labels des différents axes du radar
-
 
         ArrayList<RadarEntry> entries1 = new ArrayList<>();
         ArrayList<RadarEntry> entries2 = new ArrayList<>();
@@ -126,9 +125,11 @@ public class RadarChartActivity extends AppCompatActivity {
      * Méthode permettant de définir les paramètres générals du graphique
      */
     private void createChart() {
+        chart = findViewById(R.id.radarchart);
         chart.getDescription().setEnabled(false);
         XAxis xAxis = chart.getXAxis();
         if(themeChart.equals("Developper")) {
+            setTitle("Developper Skills Radar");
             xAxis.setValueFormatter(new ValueFormatter() {
                 private final String[] skills = new String[]{"Java", "C++", "Python", "Cobol", "SQL"};
 
@@ -138,6 +139,7 @@ public class RadarChartActivity extends AppCompatActivity {
                 }
             });
         } else {
+            setTitle("Cooking Skills Radar");
             xAxis.setValueFormatter(new ValueFormatter() {
                 private final String[] skills = new String[]{"Tartes", "Crepes", "Macarons", "Gateaux"};
 
