@@ -8,6 +8,19 @@
     <com.github.mikephil.charting.charts.RadarChart
         android:id="@+id/radarchart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="599dp" />
+
+    <Button
+        android:id="@+id/btnDevelopper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Developper Skills" />
+    <Button
+        android:id="@+id/btnCooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Cooking Skills" />
 
 </LinearLayout>
