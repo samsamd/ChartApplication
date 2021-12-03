@@ -1,19 +1,23 @@
 package com.example.chartapplication;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BarChartActivity extends AppCompatActivity  {
@@ -23,29 +27,72 @@ public class BarChartActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_bar_chart);
         BarChart chart = findViewById(R.id.barchart);
 
+        setTitle("Populations zoo de la Flèche");
+
         chart.setDrawValueAboveBar(true);
         chart.getDescription().setEnabled(false);
-        ArrayList<BarEntry> datas = new ArrayList<>();
+
+        //Paramétrage de l'axe des abscisses
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//Affiche les valeurs de l'axe des abscisses en bas du graphique
+        xAxis.setGranularity(1f);
+        //Définitions des labels de l'axe des abscisses
+        xAxis.setValueFormatter(new ValueFormatter() {
+            private final String[] animaux = new String[]{"Éléphants", "Girafes", "Chouettes", "Lions", "Chimpanzé"};
+
+            @Override
+            public String getFormattedValue(float value) {
+                return animaux[(int) value % animaux.length];
+            }
+        });
+
+        //Paramétrage de l'axe des ordonnées
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setAxisMinimum(0f);//Permet de commencer l'axe des ordonnées à 0
+        leftAxis.setAxisMaximum(30f);
+        chart.getAxisRight().setEnabled(false);//Empêche l'affichage de l'axe des ordonnées à droite du graphique
 
 
-        //Ajout des des données pour le graphe en baton
-        datas.add(new BarEntry(1, 945f));
-        datas.add(new BarEntry(2, 1040f));
-        datas.add(new BarEntry(3, 1133f));
-        datas.add(new BarEntry(4, 1240f));
-        datas.add(new BarEntry(5, 1369f));
-        datas.add(new BarEntry(6, 1487f));
-        datas.add(new BarEntry(7, 1501f));
-        datas.add(new BarEntry(8, 1645f));
-        datas.add(new BarEntry(9, 1578f));
-        datas.add(new BarEntry(10, 1695f));
+        ArrayList<BarEntry> animals = new ArrayList<>(); //Liste qui contient les donnés du graphique
+        //Assignation de valeurs aléatoires aux données
+        for (int i = 0; i< 5; i++) {
+            int valueMale = (int) ((Math.random() * 15)+1);
+            int valueFemale = (int) ((Math.random() * 15));
+            //On ajoute les données générées précédemment à la liste qui doit les contenir
+            animals.add(new BarEntry(
+                    i,
+                    new float[]{valueMale,valueFemale} //permet la création de deux barres distinctes au sein d'une même barre
+            ));
+        }
 
-        BarDataSet bardataset = new BarDataSet(datas, "datas");
-        chart.animateY(2000); 
+        //Instanciation des barres du graphique
+        BarDataSet set = new BarDataSet(animals, "Animaux du Zoo de la Fleche");
+        set.setDrawIcons(false);
+        set.setColors(getColors());
+        set.setStackLabels(new String[]{"Mâle","Femelle"});
 
-        BarData data = new BarData(bardataset);
-        data.setBarWidth(1f);
-        bardataset.setColors(ColorTemplate.JOYFUL_COLORS);
+        //Création de la liste des données qui va permettre de restituer les barres du graphique visuellement
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set);
+
+        //Instanciation de l'ensemble des données qui seront restitués à l'écran
+        BarData data = new BarData(dataSets);
+
+        //Instanciation des données du graphique
         chart.setData(data);
+
+        chart.setFitBars(true);
+        chart.animateY(2000);
+    }
+
+
+    private int[] getColors() {
+
+        // have as many colors as stack-values per entry
+        int[] colors = new int[2];
+
+        System.arraycopy(ColorTemplate.MATERIAL_COLORS, 0, colors, 0, 2);
+
+        return colors;
     }
 }
