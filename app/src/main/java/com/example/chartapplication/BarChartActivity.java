@@ -49,15 +49,15 @@ public class BarChartActivity extends AppCompatActivity  {
         //Paramétrage de l'axe des ordonnées
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMinimum(0f);//Permet de commencer l'axe des ordonnées à 0
-        leftAxis.setAxisMaximum(30f);
+        leftAxis.setAxisMaximum(15f);
         chart.getAxisRight().setEnabled(false);//Empêche l'affichage de l'axe des ordonnées à droite du graphique
 
 
         ArrayList<BarEntry> animals = new ArrayList<>(); //Liste qui contient les donnés du graphique
         //Assignation de valeurs aléatoires aux données
         for (int i = 0; i< 5; i++) {
-            int valueMale = (int) ((Math.random() * 15)+1);
-            int valueFemale = (int) ((Math.random() * 15));
+            int valueMale = (int) ((Math.random() * 6) +1);
+            int valueFemale = (int) ((Math.random() * 6) +1);
             //On ajoute les données générées précédemment à la liste qui doit les contenir
             animals.add(new BarEntry(
                     i,
