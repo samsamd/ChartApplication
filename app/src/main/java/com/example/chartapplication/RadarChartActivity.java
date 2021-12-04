@@ -73,27 +73,28 @@ public class RadarChartActivity extends AppCompatActivity {
         ArrayList<RadarEntry> entries1 = new ArrayList<>();
         ArrayList<RadarEntry> entries2 = new ArrayList<>();
         if(themeChart.equals("Developper")) {
-            entries1.add(new RadarEntry(2));
-            entries1.add(new RadarEntry(3));
+            entries1.add(new RadarEntry(5));
+            entries1.add(new RadarEntry(7));
+            entries1.add(new RadarEntry(9));
+            entries1.add(new RadarEntry(6));
             entries1.add(new RadarEntry(4));
-            entries1.add(new RadarEntry(3));
 
-            entries2.add(new RadarEntry(2));
-            entries2.add(new RadarEntry(2));
+            entries2.add(new RadarEntry(7));
             entries2.add(new RadarEntry(4));
-            entries2.add(new RadarEntry(3));
-            entries2.add(new RadarEntry(4));
+            entries2.add(new RadarEntry(6));
+            entries2.add(new RadarEntry(8));
+            entries2.add(new RadarEntry(7));
         } else {
-            entries1.add(new RadarEntry(2));
+            entries1.add(new RadarEntry(5));
+            entries1.add(new RadarEntry(7));
+            entries1.add(new RadarEntry(8));
             entries1.add(new RadarEntry(4));
-            entries1.add(new RadarEntry(3));
-            entries1.add(new RadarEntry(2));
 
 
-            entries2.add(new RadarEntry(4));
             entries2.add(new RadarEntry(1));
-            entries2.add(new RadarEntry(3));
-            entries2.add(new RadarEntry(3));
+            entries2.add(new RadarEntry(9));
+            entries2.add(new RadarEntry(5));
+            entries2.add(new RadarEntry(6));
 
         }
         RadarDataSet set1 = new RadarDataSet(entries1, "Samuel skills");
@@ -151,9 +152,10 @@ public class RadarChartActivity extends AppCompatActivity {
         }
 
         YAxis yAxis = chart.getYAxis();
-        yAxis.setLabelCount(5,true);
-        yAxis.setDrawTopYLabelEntry(false);
+        yAxis.setLabelCount(10,false);
         yAxis.setAxisMinimum(0);
-        yAxis.setAxisMaximum(5);
+
+
+
     }
 }
