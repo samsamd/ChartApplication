@@ -1,8 +1,6 @@
 package com.example.chartapplication;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -39,6 +37,7 @@ public class BarChartActivity extends AppCompatActivity implements OnSeekBarChan
 
         tv = findViewById(R.id.tv);
 
+        //Instanciation de la seekbar
         seekBar = findViewById(R.id.seekBar);
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setProgress(5);
@@ -69,6 +68,12 @@ public class BarChartActivity extends AppCompatActivity implements OnSeekBarChan
 
     }
 
+    /***
+     * Méthode qui permet d'adapter les données afficher à l'écran à chaque changement de valeur de la seekbar
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         tv.setText(String.valueOf(seekBar.getProgress()));
@@ -87,7 +92,7 @@ public class BarChartActivity extends AppCompatActivity implements OnSeekBarChan
 
         //Instanciation des barres du graphique
         BarDataSet set = new BarDataSet(animals, "Animaux du Zoo de la Fleche");
-        set.setDrawIcons(false);
+        set.setDrawIcons(true);
         set.setColors(getColors());
         set.setStackLabels(new String[]{"Mâle","Femelle"});
 
@@ -98,7 +103,7 @@ public class BarChartActivity extends AppCompatActivity implements OnSeekBarChan
         //Instanciation de l'ensemble des données qui seront restitués à l'écran
         BarData data = new BarData(dataSets);
 
-        //Instanciation des données du graphique
+        //Injection des données dans le graphique
         chart.setData(data);
 
         chart.setFitBars(true);
@@ -106,6 +111,10 @@ public class BarChartActivity extends AppCompatActivity implements OnSeekBarChan
     }
 
 
+    /**
+     * Méthode permettant de définir les couleurs des Bar
+     * @return
+     */
     private int[] getColors() {
 
         // have as many colors as stack-values per entry
